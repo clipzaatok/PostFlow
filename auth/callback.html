@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Callback</title>
+</head>
+<body>
+  <h2>Logging you in...</h2>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+
+    if (code) {
+      document.body.innerHTML = `
+        <h3>Login Success</h3>
+        <p>Auth Code:</p>
+        <code>${code}</code>
+      `;
+    } else {
+      document.body.innerHTML = "<h3>Login failed</h3>";
+    }
+  </script>
+</body>
+</html>
