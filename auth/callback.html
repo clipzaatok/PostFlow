@@ -1,22 +1,28 @@
-<script>
-  const params = new URLSearchParams(window.location.search);
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Callback</title>
+</head>
+<body>
+  <h2>Logging in...</h2>
 
-  const code = params.get("code");
-  const state = params.get("state");
+  <script>
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get("code");
+      const state = params.get("state");
 
-  const storedState = sessionStorage.getItem("tiktok_oauth_state");
-
-  if (!state || state !== storedState) {
-    document.body.innerHTML = "<h3>Invalid state (possible CSRF attack)</h3>";
-  } 
-  else if (code) {
-    document.body.innerHTML = `
-      <h3>Login Success</h3>
-      <p>Auth Code:</p>
-      <code>${code}</code>
-    `;
-  } 
-  else {
-    document.body.innerHTML = "<h3>Login failed</h3>";
-  }
-</script>
+      if (!code) {
+        document.body.innerHTML = "❌ No code received";
+      } else {
+        document.body.innerHTML =
+          "<h3>Success!</h3>" +
+          "<p><b>Code:</b> " + code + "</p>" +
+          "<p><b>State:</b> " + state + "</p>";
+      }
+    } catch (e) {
+      document.body.innerHTML = "Error: " + e.message;
+    }
+  </script>
+</body>
+</html>
